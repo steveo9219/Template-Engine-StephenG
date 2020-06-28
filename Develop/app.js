@@ -4,13 +4,14 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+let employees = [];
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const questions = [
+const BaseLinequestions = [
 	{
 		type: "input",
 		name: "name",
@@ -28,14 +29,33 @@ const questions = [
 		message: "What is your email?",
 	},
 ];
-var inquirer = require("inquirer");
 
-inquirer
-	.prompt(questions)
-	//
-	.then((employeeData) => {
-		console.log(employeeData);
+const EmployeeQuestion = [];
+// var inquirer = require("inquirer");
+
+function makeEmployee() {
+	inquirer
+		.prompt(questions)
+		//
+		.then((employeeData) => {
+			console.log(employeeData);
+			if (manager === true) {
+				managerCreation();
+			}
+		});
+}
+start();
+
+function managerCreation() {
+	inquirer.prompt(managerQuestions).then((managerData) => {
+		const name = managerData.name;
+
+		const newManger = new Manager(managerData.name, managerData.officeNumber);
+
+		employees.push(newManger);
 	});
+	makeEmployee();
+}
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -58,4 +78,4 @@ inquirer
 // and Intern classes should all extend from a class named Employee; see the directions
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+// for the provided `render` function to work!
