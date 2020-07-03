@@ -50,7 +50,7 @@ const managerQuestions = [];
 		});
 })();
 
-function managerCreation() {
+async function managerCreation() {
 	inquirer.prompt(managerQuestions).then((managerData) => {
 		const name = managerData.name;
 
@@ -58,7 +58,7 @@ function managerCreation() {
 
 		employees.push(newManger);
 	});
-	render();
+	render(employees);
 }
 
 // Write code to use inquirer to gather information about the development team members,
