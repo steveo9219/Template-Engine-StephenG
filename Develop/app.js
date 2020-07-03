@@ -11,7 +11,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const BaseLinequestions = [
+const BaseLineQuestions = [
 	{
 		type: "input",
 		name: "name",
@@ -28,23 +28,27 @@ const BaseLinequestions = [
 		name: "email",
 		message: "What is your email?",
 	},
+	{
+		type: "input",
+		name: "roleM",
+		message: "Are you a manager?",
+		type: "confirm",
+	},
 ];
 
-const EmployeeQuestion = [];
-// var inquirer = require("inquirer");
+const managerQuestions = [];
 
-function makeEmployee() {
+(function makeEmployee() {
 	inquirer
-		.prompt(questions)
+		.prompt(BaseLineQuestions)
 		//
 		.then((employeeData) => {
 			console.log(employeeData);
-			if (manager === true) {
+			if (employeeData.roleM === true) {
 				managerCreation();
 			}
 		});
-}
-start();
+})();
 
 function managerCreation() {
 	inquirer.prompt(managerQuestions).then((managerData) => {
@@ -54,7 +58,7 @@ function managerCreation() {
 
 		employees.push(newManger);
 	});
-	makeEmployee();
+	render();
 }
 
 // Write code to use inquirer to gather information about the development team members,
