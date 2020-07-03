@@ -36,7 +36,13 @@ const BaseLineQuestions = [
 	},
 ];
 
-const managerQuestions = [];
+const managerQuestions = [
+	{
+		type: "input",
+		name: "officeNumber",
+		message: "What is your office number?",
+	},
+];
 
 (function makeEmployee() {
 	inquirer
@@ -50,15 +56,17 @@ const managerQuestions = [];
 		});
 })();
 
-async function managerCreation() {
+function managerCreation(employeeData) {
 	inquirer.prompt(managerQuestions).then((managerData) => {
-		const name = managerData.name;
-
-		const newManger = new Manager(managerData.name, managerData.officeNumber);
-
+		const managerOfficeNumber = managerData.OfficeNumber;
+		console.log(managerData);
+		const newManger = new Manager(employeeData, managerData.officeNumber);
 		employees.push(newManger);
+		this.newManger = employees;
 	});
+
 	render(employees);
+	return "Manager";
 }
 
 // Write code to use inquirer to gather information about the development team members,
