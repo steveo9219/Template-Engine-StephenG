@@ -64,8 +64,9 @@ function managerCreation(employeeData) {
 		employees.push(newManger);
 		this.newManger = employees;
 	});
-
-	render(employees);
+ 
+	//render(employees);
+	fs.writeFileSync(outputPath, render(employees),"utf-8");
 	return "Manager";
 }
 
